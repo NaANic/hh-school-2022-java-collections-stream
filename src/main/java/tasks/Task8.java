@@ -19,9 +19,9 @@ public class Task8 {
   //Не хотим выдывать апи нашу фальшивую персону, поэтому конвертим начиная со второй
   public List<String> getNames(List<Person> persons) {
     return persons.stream()
-              .skip(1)
-              .map(Person::getFirstName)
-              .toList();
+        .skip(1)
+        .map(Person::getFirstName)
+        .toList();
   }
 
   //ну и различные имена тоже хочется
@@ -31,22 +31,24 @@ public class Task8 {
 
   //Для фронтов выдадим полное имя, а то сами не могут
   public String convertPersonsFullNameToString(Person person) {
-      return Stream.of(person.getSecondName(), person.getFirstName(), person.getMiddleName())
-              .filter(Objects::nonNull)
-              .collect(Collectors.joining(" "));
+    //if (person == null) return "";
+    return Stream.of(person.getSecondName(), person.getFirstName(), person.getMiddleName())
+        .filter(Objects::nonNull)
+        .collect(Collectors.joining(" "));
   }
 
   // словарь id персоны -> ее имя
   public Map<Integer, String> getPersonNames(Collection<Person> persons) {
     return persons.stream()
-            .collect(Collectors.toMap(Person::getId,
-                    this::convertPersonsFullNameToString,
-                    (person, personDuplicate) -> person));
+        .collect(Collectors.toMap(Person::getId,
+            this::convertPersonsFullNameToString,
+            (person1, person2) -> person1));
   }
 
   // есть ли совпадающие в двух коллекциях персоны?
   public boolean hasSamePersons(Collection<Person> persons1, Collection<Person> persons2) {
-    return persons1.stream().anyMatch(persons2::contains);
+    return persons1.stream().anyMatch(new HashSet<>(persons2)::contains);
+    //return !Collections.disjoint(persons1, persons2);
   }
 
   //...

@@ -13,10 +13,10 @@ public class Task3 {
 
   public static List<Person> sort(Collection<Person> persons) {
     return persons.stream()
-            .sorted(Comparator
-                    .comparing(Person::getSecondName, Comparator.nullsFirst(Comparator.naturalOrder()))
-                    .thenComparing(Person::getFirstName, Comparator.nullsFirst(Comparator.naturalOrder()))
-                    .thenComparing(Person::getCreatedAt, Comparator.nullsFirst(Comparator.naturalOrder())))
-            .toList();
+        .sorted(Comparator
+            .comparing(Person::getSecondName, Comparator.nullsFirst(Comparator.naturalOrder()))
+            .thenComparing(Person::getFirstName, Comparator.nullsFirst(Comparator.naturalOrder()))
+            .thenComparing(Person::getCreatedAt, Comparator.nullsFirst(Comparator.naturalOrder())))
+        .toList();
   }
 }
